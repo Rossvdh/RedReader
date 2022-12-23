@@ -26,12 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import org.apache.commons.text.StringEscapeUtils;
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.account.RedditAccount;
@@ -720,9 +722,6 @@ public class PostListingFragment extends RRFragment
 									= PrefsUtility.images_inline_image_previews()
 									.isEnabled(isConnectionWifi);
 
-							final boolean showNsfwPreviews
-									= PrefsUtility.images_inline_image_previews_nsfw();
-
 							final boolean showSpoilerPreviews
 									= PrefsUtility.images_inline_image_previews_spoiler();
 
@@ -733,9 +732,6 @@ public class PostListingFragment extends RRFragment
 							final boolean allowHighResThumbnails = downloadThumbnails
 									&& PrefsUtility.images_high_res_thumbnails()
 									.isEnabled(isConnectionWifi);
-
-							final boolean showNsfwThumbnails
-									= PrefsUtility.appearance_thumbnails_nsfw_show();
 
 							final boolean showSpoilerThumbnails
 									= PrefsUtility.appearance_thumbnails_spoiler_show();
@@ -819,11 +815,9 @@ public class PostListingFragment extends RRFragment
 										&& mPostIds.add(post.getIdAlone())) {
 
 									final boolean downloadThisThumbnail = downloadThumbnails
-											&& (!post.over_18 || showNsfwThumbnails)
 											&& (!post.spoiler || showSpoilerThumbnails);
 
 									final boolean downloadThisPreview = inlinePreviews
-											&& (!post.over_18 || showNsfwPreviews)
 											&& (!post.spoiler || showSpoilerPreviews);
 
 									final int positionInList = mPostCount;

@@ -21,11 +21,12 @@
 
 	<PreferenceCategory android:title="@string/pref_header_inline_image_previews">
 
-		<ListPreference android:title="@string/pref_images_inline_image_previews_title"
-						android:key="@string/pref_images_inline_image_previews_key"
-						android:entries="@array/list_yes_no_or_wifi_items"
-						android:entryValues="@array/list_yes_no_or_wifi_return"
-						android:defaultValue="always"/>
+		<ListPreference
+				android:title="@string/pref_images_inline_image_previews_title"
+				android:key="@string/pref_images_inline_image_previews_key"
+				android:entries="@array/list_yes_no_or_wifi_items"
+				android:entryValues="@array/list_yes_no_or_wifi_return"
+				android:defaultValue="wifionly" />
 
 		<CheckBoxPreference android:title="@string/pref_images_inline_image_previews_spoiler_title"
 							android:key="@string/pref_images_inline_image_previews_spoiler_key"
@@ -99,11 +100,12 @@
 
 	<PreferenceCategory android:title="@string/pref_appearance_thumbnails_header">
 
-		<ListPreference android:title="@string/pref_appearance_thumbnails_show_title"
-						android:key="@string/pref_appearance_thumbnails_show_list_key"
-						android:entries="@array/list_yes_no_or_wifi_items"
-						android:entryValues="@array/list_yes_no_or_wifi_return"
-						android:defaultValue="always"/>
+		<ListPreference
+				android:title="@string/pref_appearance_thumbnails_show_title"
+				android:key="@string/pref_appearance_thumbnails_show_list_key"
+				android:entries="@array/list_yes_no_or_wifi_items"
+				android:entryValues="@array/list_yes_no_or_wifi_return"
+				android:defaultValue="wifionly" />
 
 		<CheckBoxPreference android:title="@string/pref_appearance_thumbnails_spoiler_show_title"
 					  android:key="@string/pref_appearance_thumbnails_spoiler_show_key"
