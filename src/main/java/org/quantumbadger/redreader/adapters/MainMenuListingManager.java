@@ -28,10 +28,12 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.account.RedditAccount;
 import org.quantumbadger.redreader.account.RedditAccountManager;
@@ -222,17 +224,17 @@ public class MainMenuListingManager {
 
 					final GroupedRecyclerViewItemListItemView item
 							= new GroupedRecyclerViewItemListItemView(
-									null,
-									activity.getString(R.string.find_location),
-									null,
-									false,
-									clickListener,
-									null,
-									Optional.of(rrIconAccountSearch),
-									Optional.of(view -> mListener.onSelected(
-											MainMenuFragment.MENU_MENU_ACTION_CUSTOM)),
-									Optional.of(activity.getString(
-											R.string.mainmenu_custom_destination)));
+							null,
+							activity.getString(R.string.find_location),
+							null,
+							false,
+							clickListener,
+							null,
+							Optional.empty(),
+							Optional.of(view -> mListener.onSelected(
+									MainMenuFragment.MENU_MENU_ACTION_CUSTOM)),
+							Optional.of(activity.getString(
+									R.string.mainmenu_custom_destination)));
 
 					mAdapter.appendToGroup(GROUP_MAIN_ITEMS, item);
 

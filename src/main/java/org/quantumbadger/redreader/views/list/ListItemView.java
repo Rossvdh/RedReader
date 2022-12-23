@@ -24,8 +24,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.common.Optional;
 
@@ -105,12 +107,14 @@ public class ListItemView extends FrameLayout {
 			mMainLink.setOnLongClickListener(null);
 		}
 
-		if(secondaryIcon.isPresent()) {
+		if (secondaryIcon.isPresent()) {
 			mSecondaryIcon.setImageDrawable(secondaryIcon.get());
 			mSecondaryIcon.setContentDescription(secondaryContentDesc.orElseNull());
+		} else {
+			mSecondaryIcon.setVisibility(GONE);
 		}
 
-		if(secondaryAction.isPresent()) {
+		if (secondaryAction.isPresent() && secondaryIcon.isPresent()) {
 			mSecondaryLink.setVisibility(VISIBLE);
 			mSecondaryIcon.setOnClickListener(secondaryAction.get());
 		} else {

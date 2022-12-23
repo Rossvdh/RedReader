@@ -33,11 +33,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.TooltipCompat;
+
 import org.apache.commons.text.StringEscapeUtils;
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.account.RedditAccount;
@@ -483,12 +485,6 @@ public final class RedditPreparedPost implements RedditChangeDataManager.Listene
 					activity,
 					R.string.action_copy_selftext,
 					Action.COPY_SELFTEXT));
-		}
-		if(itemPref.contains(Action.USER_PROFILE)) {
-			menu.add(new RPVMenuItem(
-					activity,
-					R.string.action_user_profile,
-					Action.USER_PROFILE));
 		}
 		if(itemPref.contains(Action.PROPERTIES)) {
 			menu.add(new RPVMenuItem(

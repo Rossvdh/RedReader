@@ -27,10 +27,6 @@
 						android:entryValues="@array/list_yes_no_or_wifi_return"
 						android:defaultValue="always"/>
 
-	<!--	<CheckBoxPreference android:title="@string/pref_images_inline_image_previews_nsfw_title"
-							android:key="@string/pref_images_inline_image_previews_nsfw_key"
-							android:defaultValue="false"/>-->
-
 		<CheckBoxPreference android:title="@string/pref_images_inline_image_previews_spoiler_title"
 							android:key="@string/pref_images_inline_image_previews_spoiler_key"
 							android:defaultValue="false"/>
@@ -108,10 +104,6 @@
 						android:entries="@array/list_yes_no_or_wifi_items"
 						android:entryValues="@array/list_yes_no_or_wifi_return"
 						android:defaultValue="always"/>
-
-		<!--		<CheckBoxPreference android:title="@string/pref_appearance_thumbnails_nsfw_show_title"
-									android:key="@string/pref_appearance_thumbnails_nsfw_show_key"
-									android:defaultValue="false"/>-->
 
 		<CheckBoxPreference android:title="@string/pref_appearance_thumbnails_spoiler_show_title"
 					  android:key="@string/pref_appearance_thumbnails_spoiler_show_key"

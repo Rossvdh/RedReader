@@ -23,9 +23,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.apache.commons.text.StringEscapeUtils;
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.account.RedditAccount;
@@ -249,13 +251,6 @@ public class RedditAPICommentAction {
 					activity,
 					R.string.action_copy_link,
 					RedditCommentAction.COPY_URL));
-		}
-
-		if(itemPref.contains(RedditCommentAction.USER_PROFILE)) {
-			menu.add(new RCVMenuItem(
-					activity,
-					R.string.action_user_profile,
-					RedditCommentAction.USER_PROFILE));
 		}
 
 		if(itemPref.contains(RedditCommentAction.PROPERTIES)) {
