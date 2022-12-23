@@ -44,7 +44,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 	@Nullable private EventListenerSet.Listener<String> mBindingListener;
 
 	private MaterialButton mButtonSubreddit;
-	private MaterialButton mButtonUser;
 	private MaterialButton mButtonSearch;
 
 	public SubredditSearchQuickLinks(final Context context) {
@@ -72,8 +71,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 
 		mButtonSubreddit = Objects.requireNonNull(
 				(MaterialButton)findViewById(R.id.button_go_to_subreddit));
-		mButtonUser = Objects.requireNonNull(
-				(MaterialButton)findViewById(R.id.button_go_to_user));
 		mButtonSearch = Objects.requireNonNull(
 				(MaterialButton)findViewById(R.id.button_go_to_search));
 
@@ -130,11 +127,9 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 			mButtonSubreddit.setText(R.string.find_location_button_goto_subreddit);
 
 			mButtonSubreddit.setEnabled(false);
-			mButtonUser.setEnabled(false);
 			mButtonSearch.setEnabled(false);
 
 			mButtonSubreddit.setVisibility(VISIBLE);
-			mButtonUser.setVisibility(VISIBLE);
 			mButtonSearch.setVisibility(VISIBLE);
 
 		} else {
@@ -154,17 +149,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 				mButtonSubreddit.setVisibility(GONE);
 			}
 
-			if(queryProcessed.queryUser != null) {
-				mButtonUser.setVisibility(VISIBLE);
-
-				mButtonUser.setOnClickListener(view -> LinkHandler.onLinkClicked(
-						mActivity,
-						"/u/" + queryProcessed.queryUser));
-
-			} else {
-				mButtonUser.setVisibility(GONE);
-			}
-
 			mButtonSearch.setOnClickListener(view -> {
 
 				final SearchPostListURL url
@@ -176,7 +160,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 			});
 
 			mButtonSubreddit.setEnabled(true);
-			mButtonUser.setEnabled(true);
 			mButtonSearch.setEnabled(true);
 		}
 	}
@@ -184,7 +167,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 	private static class ProcessedQuery {
 
 		@Nullable public final String querySubreddit;
-		@Nullable public final String queryUser;
 		@Nullable public final String querySearch;
 
 		public ProcessedQuery(@NonNull final String query) {
@@ -199,7 +181,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 
 			if(query.contains("://")) {
 				querySubreddit = null;
-				queryUser = null;
 
 			} else if(startsWithSlashRSlash || startsWithRSlash) {
 
@@ -209,25 +190,14 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 					querySubreddit = query.substring(2);
 				}
 
-				queryUser = null;
-
 			} else if(startsWithSlashUSlash || startsWithUSlash) {
-
-				if(startsWithSlashUSlash) {
-					queryUser = query.substring(3);
-				} else {
-					queryUser = query.substring(2);
-				}
-
 				querySubreddit = null;
 
 			} else if(query.startsWith("/")) {
 				querySubreddit = null;
-				queryUser = null;
 
 			} else {
 				querySubreddit = query.replaceAll("[ \t]+", "_");
-				queryUser = querySubreddit;
 			}
 		}
 	}
