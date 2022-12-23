@@ -23,9 +23,11 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.activities.OptionsMenuUtility;
 import org.quantumbadger.redreader.adapters.MainMenuListingManager;
@@ -119,8 +121,6 @@ public final class PrefsUtility {
 						R.string.pref_appearance_hide_headertoolbar_postlist_key))
 				|| key.equals(context.getString(R.string.pref_images_thumbnail_size_key))
 				|| key.equals(context.getString(R.string.pref_images_inline_image_previews_key))
-				|| key.equals(context.getString(
-						R.string.pref_images_inline_image_previews_nsfw_key))
 				|| key.equals(context.getString(
 						R.string.pref_images_inline_image_previews_spoiler_key))
 				|| key.equals(context.getString(R.string.pref_images_high_res_thumbnails_key))
@@ -331,12 +331,6 @@ public final class PrefsUtility {
 		} else {
 			return NeverAlwaysOrWifiOnly.ALWAYS;
 		}
-	}
-
-	public static boolean appearance_thumbnails_nsfw_show() {
-		return getBoolean(
-				R.string.pref_appearance_thumbnails_nsfw_show_key,
-				false);
 	}
 
 	public static boolean appearance_thumbnails_spoiler_show() {
@@ -702,12 +696,6 @@ public final class PrefsUtility {
 				getString(
 						R.string.pref_images_inline_image_previews_key,
 						"always")));
-	}
-
-	public static boolean images_inline_image_previews_nsfw() {
-		return getBoolean(
-				R.string.pref_images_inline_image_previews_nsfw_key,
-				false);
 	}
 
 	public static boolean images_inline_image_previews_spoiler() {

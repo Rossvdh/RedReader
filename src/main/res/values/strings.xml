@@ -52,9 +52,6 @@
     <string name="pref_appearance_thumbnails_show_key" translatable="false">pref_appearance_thumbnails_show</string>
     <string name="pref_appearance_thumbnails_show_title">Show thumbnails</string>
 
-    <string name="pref_appearance_thumbnails_nsfw_show_key" translatable="false">pref_appearance_thumbnails_nsfw_show</string>
-    <string name="pref_appearance_thumbnails_nsfw_show_title">Show NSFW thumbnails</string>
-
     <string name="pref_appearance_thumbnails_wifionly_key" translatable="false">pref_appearance_thumbnails_wifionly</string>
     <string name="pref_appearance_thumbnails_wifionly_title">Thumbnails on Wi-Fi only</string>
 
@@ -1402,7 +1399,6 @@
 	<string name="pref_images_inline_image_previews_key" translatable="false">pref_images_inline_image_previews_key</string>
 
 	<string name="pref_images_inline_image_previews_nsfw_title">Show NSFW previews</string>
-	<string name="pref_images_inline_image_previews_nsfw_key" translatable="false">pref_images_inline_image_previews_nsfw_key</string>
 
 	<string name="pref_header_image_viewer">Image viewer</string>
 

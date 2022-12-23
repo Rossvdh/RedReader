@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.StringRes;
 import androidx.fragment.app.FragmentActivity;
 import androidx.preference.CheckBoxPreference;
@@ -38,6 +39,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceScreen;
+
 import org.quantumbadger.redreader.BuildConfig;
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.activities.BaseActivity;
@@ -433,8 +435,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
 		{
 			final ListPreference thumbnailPref = findPreference(
 					getString(R.string.pref_appearance_thumbnails_show_list_key));
-			final Preference thumbnailNsfwPref =
-					findPreference(getString(R.string.pref_appearance_thumbnails_nsfw_show_key));
 			final Preference thumbnailSpoilerPref =
 					findPreference(getString(R.string.pref_appearance_thumbnails_spoiler_show_key));
 
@@ -442,7 +442,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
 				thumbnailPref.setOnPreferenceChangeListener((preference, newValue) -> {
 					final int index = thumbnailPref.findIndexOfValue((String)newValue);
 					thumbnailPref.setSummary(thumbnailPref.getEntries()[index]);
-					thumbnailNsfwPref.setEnabled(!newValue.equals("never"));
 					thumbnailSpoilerPref.setEnabled(!newValue.equals("never"));
 					return true;
 				});
@@ -452,8 +451,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
 		{
 		final ListPreference inlineImagesPref = findPreference(
 				getString(R.string.pref_images_inline_image_previews_key));
-		final Preference inlineImagesNsfwPref =
-				findPreference(getString(R.string.pref_images_inline_image_previews_nsfw_key));
 		final Preference inlineImagesSpoilerPref =
 				findPreference(getString(R.string.pref_images_inline_image_previews_spoiler_key));
 
@@ -461,7 +458,6 @@ public final class SettingsFragment extends PreferenceFragmentCompat {
 			inlineImagesPref.setOnPreferenceChangeListener((preference, newValue) -> {
 				final int index = inlineImagesPref.findIndexOfValue((String)newValue);
 				inlineImagesPref.setSummary(inlineImagesPref.getEntries()[index]);
-				inlineImagesNsfwPref.setEnabled(!newValue.equals("never"));
 				inlineImagesSpoilerPref.setEnabled(!newValue.equals("never"));
 				return true;
 			});
