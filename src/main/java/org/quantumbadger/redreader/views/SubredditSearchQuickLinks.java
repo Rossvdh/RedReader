@@ -20,11 +20,14 @@ package org.quantumbadger.redreader.views;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.button.MaterialButton;
+
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.activities.PostListingActivity;
 import org.quantumbadger.redreader.common.EventListenerSet;
@@ -42,7 +45,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 
 	private MaterialButton mButtonSubreddit;
 	private MaterialButton mButtonUser;
-	private MaterialButton mButtonUrl;
 	private MaterialButton mButtonSearch;
 
 	public SubredditSearchQuickLinks(final Context context) {
@@ -72,8 +74,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 				(MaterialButton)findViewById(R.id.button_go_to_subreddit));
 		mButtonUser = Objects.requireNonNull(
 				(MaterialButton)findViewById(R.id.button_go_to_user));
-		mButtonUrl = Objects.requireNonNull(
-				(MaterialButton)findViewById(R.id.button_go_to_url));
 		mButtonSearch = Objects.requireNonNull(
 				(MaterialButton)findViewById(R.id.button_go_to_search));
 
@@ -131,12 +131,10 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 
 			mButtonSubreddit.setEnabled(false);
 			mButtonUser.setEnabled(false);
-			mButtonUrl.setEnabled(false);
 			mButtonSearch.setEnabled(false);
 
 			mButtonSubreddit.setVisibility(VISIBLE);
 			mButtonUser.setVisibility(VISIBLE);
-			mButtonUrl.setVisibility(VISIBLE);
 			mButtonSearch.setVisibility(VISIBLE);
 
 		} else {
@@ -167,17 +165,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 				mButtonUser.setVisibility(GONE);
 			}
 
-			if(queryProcessed.queryUrl != null) {
-				mButtonUrl.setVisibility(VISIBLE);
-
-				mButtonUrl.setOnClickListener(view -> LinkHandler.onLinkClicked(
-						mActivity,
-						queryProcessed.queryUrl));
-
-			} else {
-				mButtonUrl.setVisibility(GONE);
-			}
-
 			mButtonSearch.setOnClickListener(view -> {
 
 				final SearchPostListURL url
@@ -190,7 +177,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 
 			mButtonSubreddit.setEnabled(true);
 			mButtonUser.setEnabled(true);
-			mButtonUrl.setEnabled(true);
 			mButtonSearch.setEnabled(true);
 		}
 	}
@@ -199,7 +185,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 
 		@Nullable public final String querySubreddit;
 		@Nullable public final String queryUser;
-		@Nullable public final String queryUrl;
 		@Nullable public final String querySearch;
 
 		public ProcessedQuery(@NonNull final String query) {
@@ -215,7 +200,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 			if(query.contains("://")) {
 				querySubreddit = null;
 				queryUser = null;
-				queryUrl = query;
 
 			} else if(startsWithSlashRSlash || startsWithRSlash) {
 
@@ -226,7 +210,6 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 				}
 
 				queryUser = null;
-				queryUrl = null;
 
 			} else if(startsWithSlashUSlash || startsWithUSlash) {
 
@@ -237,17 +220,14 @@ public class SubredditSearchQuickLinks extends FlexboxLayout {
 				}
 
 				querySubreddit = null;
-				queryUrl = null;
 
 			} else if(query.startsWith("/")) {
 				querySubreddit = null;
 				queryUser = null;
-				queryUrl = "https://reddit.com" + query;
 
 			} else {
 				querySubreddit = query.replaceAll("[ \t]+", "_");
 				queryUser = querySubreddit;
-				queryUrl = "https://" + query;
 			}
 		}
 	}
