@@ -98,7 +98,9 @@ import org.quantumbadger.redreader.views.liststatus.ErrorView;
 import java.net.URI;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -324,8 +326,8 @@ public class PostListingFragment extends RRFragment
 								AndroidCommon.UI_THREAD_HANDLER.post(() -> {
 									mSubreddit = result;
 
-									if(mSubreddit.over18
-											&& !PrefsUtility.pref_behaviour_nsfw()) {
+									if ((mSubreddit.over18
+											&& !PrefsUtility.pref_behaviour_nsfw()) || subredditNameContainsForbiddenTerm()) {
 										mPostListingManager.setLoadingVisible(false);
 
 										final int title
@@ -382,6 +384,12 @@ public class PostListingFragment extends RRFragment
 								+ ": "
 								+ mPostListingURL.toString()));
 		}
+	}
+
+	private boolean subredditNameContainsForbiddenTerm() {
+		final List<String> forbiddenTermsList = Arrays.asList(getContext().getResources().getStringArray(R.array.forbidden_search_terms));
+
+		return forbiddenTermsList.stream().anyMatch(filterTerm -> mSubreddit.display_name.toLowerCase(Locale.ROOT).contains(filterTerm));
 	}
 
 	@Override
