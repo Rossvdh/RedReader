@@ -18,9 +18,11 @@
 package org.quantumbadger.redreader.reddit;
 
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.activities.HtmlViewActivity;
 import org.quantumbadger.redreader.common.HasUniqueId;
@@ -33,11 +35,21 @@ import java.util.Locale;
 
 public class SubredditDetails implements HasUniqueId {
 
-	@NonNull public final SubredditCanonicalId id;
-	@NonNull public final String name;
-	@NonNull public final String url;
-	@Nullable public final String publicDescriptionHtmlEscaped;
-	@Nullable public final Integer subscribers;
+	@NonNull
+	public final SubredditCanonicalId id;
+	@NonNull
+	public final String name;
+	@NonNull
+	public final String url;
+	@Nullable
+	public final String publicDescriptionHtmlEscaped;
+	@Nullable
+	public final Integer subscribers;
+
+
+	public static SubredditDetails createForbiddenSearchTermResult() throws InvalidSubredditNameException {
+		return new SubredditDetails("Why are you searching for that?", "/r/pornfree");
+	}
 
 	public SubredditDetails(
 			@NonNull final RedditSubreddit subreddit) throws InvalidSubredditNameException {
@@ -56,13 +68,22 @@ public class SubredditDetails implements HasUniqueId {
 		subscribers = null;
 	}
 
+	private SubredditDetails(String name, String url) throws InvalidSubredditNameException {
+		id = new SubredditCanonicalId("/r/test");
+		this.name = name;
+		this.url = url;
+		publicDescriptionHtmlEscaped = null;
+		subscribers = null;
+	}
+
+
 	@NonNull
 	public static SubredditDetails newWithRuntimeException(
 			@NonNull final RedditSubreddit subreddit) {
 
 		try {
 			return new SubredditDetails(subreddit);
-		} catch(final InvalidSubredditNameException e) {
+		} catch (final InvalidSubredditNameException e) {
 			throw new RuntimeException(e);
 		}
 	}

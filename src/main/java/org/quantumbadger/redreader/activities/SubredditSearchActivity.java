@@ -22,11 +22,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import org.quantumbadger.redreader.R;
 import org.quantumbadger.redreader.account.RedditAccount;
 import org.quantumbadger.redreader.account.RedditAccountManager;
@@ -49,16 +51,20 @@ import org.quantumbadger.redreader.reddit.APIResponseHandler;
 import org.quantumbadger.redreader.reddit.RedditAPI;
 import org.quantumbadger.redreader.reddit.SubredditDetails;
 import org.quantumbadger.redreader.reddit.api.RedditSubredditSubscriptionManager;
+import org.quantumbadger.redreader.reddit.things.InvalidSubredditNameException;
 import org.quantumbadger.redreader.reddit.things.RedditSubreddit;
 import org.quantumbadger.redreader.reddit.things.SubredditCanonicalId;
 import org.quantumbadger.redreader.viewholders.SubredditItemViewHolder;
 import org.quantumbadger.redreader.views.SubredditSearchQuickLinks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class SubredditSearchActivity extends BaseActivity implements
 		RedditSubredditSubscriptionManager.SubredditSubscriptionStateChangeListener {
@@ -406,6 +412,8 @@ public class SubredditSearchActivity extends BaseActivity implements
 
 	private void doSearchRequest(@NonNull final String text) {
 
+		final List<String> forbiddenTermsList = Arrays.asList(getResources().getStringArray(R.array.forbidden_search_terms));
+
 		Log.i(TAG, "Running search");
 
 		final CacheManager cacheManager = CacheManager.getInstance(this);
@@ -426,13 +434,27 @@ public class SubredditSearchActivity extends BaseActivity implements
 
 						Log.i(TAG, "Search results received");
 
-						final ArrayList<SubredditDetails> results
-								= new CollectionStream<>(value.subreddits)
-										.map(SubredditDetails::newWithRuntimeException)
-										.collect(new ArrayList<>());
+						ArrayList<SubredditDetails> results = new ArrayList<>();
+						boolean searchedForForbiddenTerm = forbiddenTermsList.stream().anyMatch(filterTerm -> text.toLowerCase(Locale.ROOT).contains(filterTerm));
+
+						if (searchedForForbiddenTerm) {
+							Log.i(TAG, "user search term \"" + text + "\" contains a forbidden term");
+							try {
+								results.add(SubredditDetails.createForbiddenSearchTermResult());
+							} catch (InvalidSubredditNameException e) {
+								e.printStackTrace();
+							}
+						} else {
+							results
+									= new CollectionStream<>(value.subreddits)
+									.map(SubredditDetails::newWithRuntimeException)
+									.collect(new ArrayList<>());
+						}
+
+						final ArrayList<SubredditDetails> finalResults = results;
 
 						AndroidCommon.runOnUiThread(() -> {
-							mQueryResults.get().put(text, results);
+							mQueryResults.get().put(text, finalResults);
 							mQueriesPending.get().remove(text);
 							updateList();
 						});

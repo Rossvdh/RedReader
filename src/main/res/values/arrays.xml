@@ -1284,4 +1284,15 @@
 		<item>never</item>
 	</string-array>
 
+	<!-- Terms which user should not be able to search for. This removes the ability to search
+	 for subreddits that contain questionable content, while not being marked as or strictly NSFW
+	 -->
+	<string-array name="forbidden_search_terms">
+		<item>thot</item>
+		<item>sexy</item>
+		<item>sex</item>
+		<item>tiktok</item>
+		<item>tik_tok</item>
+	</string-array>
+
 </resources>
